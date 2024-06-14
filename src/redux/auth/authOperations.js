@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const { BASE_URL } = import.meta.env;
+const { VITE_API_BASE_URL } = import.meta.env;
 
-axios.defaults.baseURL = BASE_URL;
+axios.defaults.baseURL = VITE_API_BASE_URL;
 
 // Utility to add JWT
 const setAuthHeader = token => {
@@ -23,7 +23,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async ({ name, email, password }, thunkAPI) => {
     try {
-      const res = await axios.post('/users/signup', { name, email, password });
+      const res = await axios.post('api/users/signup', { name, email, password });
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -37,7 +37,7 @@ export const register = createAsyncThunk(
  */
 export const logIn = createAsyncThunk('auth/login', async ({ email, password }, thunkAPI) => {
   try {
-    const res = await axios.post('/users/login', { email, password });
+    const res = await axios.post('api/users/login', { email, password });
     // After successful login, add the token to the HTTP header
     setAuthHeader(res.data.token);
     return res.data;
@@ -52,7 +52,7 @@ export const logIn = createAsyncThunk('auth/login', async ({ email, password }, 
  */
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await axios.get('/users/logout');
+    await axios.get('api/users/logout');
     // After a successful logout, remove the token from the HTTP header
     clearAuthHeader();
   } catch (error) {
@@ -77,7 +77,7 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
   try {
     // If there is a token, add it to the HTTP header and perform the request
     setAuthHeader(persistedToken);
-    const res = await axios.get('/users/current');
+    const res = await axios.get('api/users/current');
     return res.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
