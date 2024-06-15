@@ -51,6 +51,13 @@ export const logIn = createAsyncThunk('auth/login', async ({ email, password }, 
     setAuthHeader(res.data.token);
     return res.data;
   } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Handle 401 (Unauthorized) error - email/password doesn't match
+      toast.error('Incorrect email address or password!');
+    } else {
+      // Handle other errors
+      toast.error('Login failed! Please try again.');
+    }
     return thunkAPI.rejectWithValue(error.message);
   }
 });
