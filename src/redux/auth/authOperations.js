@@ -28,7 +28,13 @@ export const register = createAsyncThunk(
       toast.success('Account registration successful!');
       return res.data;
     } catch (error) {
-      toast.error('Registration failed! Please try again.');
+      if (error.response && error.response.status === 409) {
+        // Handle 409 (Conflict) error - email already exists
+        toast.error('Registration failed. Email already exists.');
+      } else {
+        // Handle other errors
+        toast.error('Registration failed! Please try again.');
+      }
       return thunkAPI.rejectWithValue(error.message);
     }
   }
