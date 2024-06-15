@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
@@ -24,8 +25,10 @@ export const register = createAsyncThunk(
   async ({ firstName, lastName, email, password }, thunkAPI) => {
     try {
       const res = await axios.post('api/users/signup', { firstName, lastName, email, password });
+      toast.success('Account registration successful!');
       return res.data;
     } catch (error) {
+      toast.error('Registration failed! Please try again.');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
