@@ -10,7 +10,8 @@ export const RegisterForm = () => {
     const form = e.target;
     dispatch(
       register({
-        name: form.elements.name.value,
+        firstName: form.elements.firstName.value,
+        lastName: form.elements.lastName.value,
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
@@ -21,8 +22,12 @@ export const RegisterForm = () => {
   return (
     <form className={css.form} onSubmit={handleSubmit} autoComplete='off'>
       <label className={css.label}>
-        Username
-        <input type='text' name='name' />
+        First Name
+        <input type='text' name='firstName' />
+      </label>
+      <label className={css.label}>
+        Last Name
+        <input type='text' name='lastName' />
       </label>
       <label className={css.label}>
         Email
