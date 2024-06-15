@@ -31,9 +31,9 @@ export const RegisterForm = () => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: values => {
       dispatch(register(values));
-      resetForm();
+      formik.resetForm();
     },
   });
 
@@ -45,6 +45,7 @@ export const RegisterForm = () => {
           type='text'
           name='firstName'
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.firstName}
         />
         {formik.touched.firstName && formik.errors.firstName ? (
@@ -57,6 +58,7 @@ export const RegisterForm = () => {
           type='text'
           name='lastName'
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.lastName}
         />
         {formik.touched.lastName && formik.errors.lastName ? (
@@ -69,6 +71,7 @@ export const RegisterForm = () => {
           type='email'
           name='email'
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.email}
         />
         {formik.touched.email && formik.errors.email ? (
@@ -81,6 +84,7 @@ export const RegisterForm = () => {
           type='password'
           name='password'
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.password}
         />
         {formik.touched.password && formik.errors.password ? (
