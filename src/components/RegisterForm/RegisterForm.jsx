@@ -37,7 +37,7 @@ export const RegisterForm = () => {
       <FormField label='Password' name='password' type='password' formik={formik} icon={FcPrivacy } />
       </>
 
-      <Button name='Sign Up' type='submit' />
+      <Button className={css.registerButton} name='Sign Up' type='submit' />
     </form>
   );
 };

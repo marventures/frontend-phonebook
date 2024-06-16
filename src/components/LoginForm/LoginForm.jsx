@@ -31,7 +31,7 @@ export const LoginForm = () => {
       <FormField label='Password' name='password' type='password' formik={formik} icon={FcPrivacy } />
       </>
 
-      <Button name='Log In' type='submit' />
+      <Button className={css.loginButton} name='Log In' type='submit' />
     </form>
   );
 };

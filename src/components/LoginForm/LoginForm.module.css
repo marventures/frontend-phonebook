@@ -24,3 +24,13 @@
   color: #303030;
   margin-bottom: 30px;
 }
+
+.loginButton {
+  width: 150px;
+  background: #e85d04;
+  margin: 0 auto;
+}
+
+.loginButton:hover {
+  background: #e85b04c6;
+}

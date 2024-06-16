@@ -8,8 +8,7 @@
   background-color: rgba(25, 28, 38, 0.2);
   border-radius: 5px;
 
-  transform: translate(-50%, -50%) scale(1);
-  transition: transform 250ms ease-in-out;
+  transform: translate(-50%, -50%);
 
   @media screen and (min-width: 428px) {
     height: auto;
@@ -23,4 +22,14 @@
   text-align: center;
   color: #303030;
   margin-bottom: 30px;
+}
+
+.registerButton {
+  width: 150px;
+  background: #e85d04;
+  margin: 0 auto;
+}
+
+.registerButton:hover {
+  background: #e85b04c6;
 }
