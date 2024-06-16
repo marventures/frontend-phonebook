@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../../redux/contacts/contactsOperation';
 import { useToggle } from '../../../hooks/useToggle';
 import { Modal } from '../../Modal/Modal';
+import { EditForm } from '../../EditForm/EditForm';
 
 export const ContactListItem = ({ filteredContact }) => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const ContactListItem = ({ filteredContact }) => {
         Edit Contact
       </button>
       <button onClick={handleDelete}>Delete</button>
-      <Modal isOpen={isOpen} onClose={toggle} />
+      <Modal isOpen={isOpen} onClose={toggle} component={EditForm} modalTitle='Edit a Contact' />
     </li>
   );
 };

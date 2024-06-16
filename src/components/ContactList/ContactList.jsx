@@ -10,6 +10,7 @@ import { Button } from '../Button/Button';
 import { useToggle } from '../../hooks/useToggle';
 import { Modal } from '../Modal/Modal';
 import css from './ContactList.module.css';
+import { AddForm } from '../AddForm/AddForm';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
@@ -34,7 +35,7 @@ export const ContactList = () => {
       )}
 
       <Button className={css.addButton} type='button' name='Add Contact' onClick={toggle} />
-      <Modal isOpen={isOpen} onClose={toggle} />
+      <Modal isOpen={isOpen} onClose={toggle} component={AddForm} modalTitle='Add a Contact' />
 
       {/* if not loading, not error and have atleast 1 filtered contact, show ContactListItem */}
       {!isLoading &&

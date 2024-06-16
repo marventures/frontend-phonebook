@@ -38,7 +38,6 @@ export const AddForm = ({ onClose }) => {
 
   return (
     <form className={css.form} onSubmit={formik.handleSubmit}>
-      <h2 className={css.formTitle}>Add Contact</h2>
       <FormField label='Name' name='name' type='text' formik={formik} icon={FcPortraitMode} />
       <FormField label='Phone' name='phone' type='phone' formik={formik} icon={FcCallback} />
       <FormField label='Email' name='email' type='email' formik={formik} icon={FcInvite} />

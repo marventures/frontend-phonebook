@@ -1,0 +1,12 @@
+.formTitle {
+}
+
+.editButton {
+  width: 150px;
+  background: #e85d04;
+  margin: 0 auto;
+}
+
+.editButton:hover {
+  background: #e85b04c6;
+}
