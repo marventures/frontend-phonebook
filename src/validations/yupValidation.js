@@ -19,4 +19,20 @@ const loginValidation = Yup.object({
   password: Yup.string().required('Password is required'),
 });
 
-export { signupValidation, loginValidation };
+const contactValidation = Yup.object({
+  name: Yup.string()
+    .matches(
+      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+      "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
+    )
+    .required('Name is required'),
+  phone: Yup.string()
+    .matches(
+      /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
+      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+    )
+    .required('Phone number is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+});
+
+export { signupValidation, loginValidation, contactValidation };

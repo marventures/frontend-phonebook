@@ -1,67 +1,51 @@
-import { useState } from 'react';
-import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
 import { addContact } from '../../redux/contacts/contactsOperation';
 import { selectContacts } from '../../redux/contacts/contactsSelector';
+import css from './ContactForm.module.css';
+import { contactValidation } from '../../validations/yupValidation';
+import toast from 'react-hot-toast';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-
-  const handleNameChange = e => {
-    setName(e.target.value);
-  };
-
-  const handlePhoneChange = e => {
-    setPhone(e.target.value);
-  };
-
-  const handleEmailChange = e => {
-    setEmail(e.target.value);
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    if (name.trim() === '' || phone.trim() === '') {
-      return;
-    }
-
-    const existingContact = contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-    if (existingContact) {
-      alert(`${name} is already in contacts!`);
-      return;
-    }
-
-    // dispatch(addContact({ name: name, phone: phone }));
-    dispatch(addContact({ name, phone, email }));
-
-    // Reset Form Fields upon submitting
-    setName('');
-    setPhone('');
-    setEmail('');
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      phone: '',
+      email: '',
+    },
+    validationSchema: contactValidation,
+    onSubmit: values => {
+      const existingContact = contacts.find(
+        contact => contact.name.toLowerCase() === values.name.toLowerCase()
+      );
+      if (existingContact) {
+        toast.error(`${values.name} is already in contacts!`);
+      } else {
+        toast.success(`${values.name} is successfully added in your contacts!`);
+        dispatch(addContact(values));
+        formik.resetForm();
+      }
+    },
+  });
 
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
+    <form className={css.form} onSubmit={formik.handleSubmit}>
       <label className={css.formField}>
         <p className={css.formLabel}>Name</p>
         <input
           type='text'
           name='name'
-          // add \ before - in [' \-] to make it work (LMS)
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           required
-          value={name}
-          onChange={handleNameChange}
         />
+        {formik.touched.name && formik.errors.name && (
+          <div className={css.error}>{formik.errors.name}</div>
+        )}
       </label>
 
       <label className={css.formField}>
@@ -69,26 +53,31 @@ export const ContactForm = () => {
         <input
           type='tel'
           name='phone'
-          // add \ before - in [\-.\s] to make it work (LMS)
-          pattern='\+?\d{1,4}?[\-.\s]?\(?\d{1,3}?\)?[\-.\s]?\d{1,4}[\-.\s]?\d{1,4}[\-.\s]?\d{1,9}'
-          title='Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+          value={formik.values.phone}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           required
-          value={phone}
-          onChange={handlePhoneChange}
         />
+        {formik.touched.phone && formik.errors.phone && (
+          <div className={css.error}>{formik.errors.phone}</div>
+        )}
       </label>
 
       <label className={css.formField}>
         <p className={css.formLabel}>Email</p>
         <input
           type='email'
-          name='name'
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
+          name='email'
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           required
-          value={email}
-          onChange={handleEmailChange}
         />
+        {formik.touched.email && formik.errors.email && (
+          <div className={css.error}>{formik.errors.email}</div>
+        )}
       </label>
+
       <button className={css.formButton} type='submit'>
         Add Contact
       </button>
