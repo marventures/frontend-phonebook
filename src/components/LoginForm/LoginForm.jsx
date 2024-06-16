@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import { logIn } from '../../redux/auth/authOperations';
 import css from './LoginForm.module.css';
+import { loginValidation } from '../../validations/yupValidation';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -12,10 +12,7 @@ export const LoginForm = () => {
       email: '',
       password: '',
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email('Invalid email address').required('Email is required'),
-      password: Yup.string().required('Password is required'),
-    }),
+    validationSchema: loginValidation,
     onSubmit: values => {
       dispatch(logIn(values));
       formik.resetForm();
@@ -23,7 +20,7 @@ export const LoginForm = () => {
   });
 
   return (
-    <form className={css.form} onSubmit={formik.handleSubmit} autoComplete='off'>
+    <form className={css.form} onSubmit={formik.handleSubmit}>
       <label className={css.label} htmlFor='email'>
         Email
         <input

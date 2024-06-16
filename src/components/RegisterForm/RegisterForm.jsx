@@ -1,28 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/auth/authOperations';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'; // Import Yup for schema validation
+import { signupValidation } from '../../validations/yupValidation';
 import css from './RegisterForm.module.css';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  // Define Yup validation schema
-  const validationSchema = Yup.object({
-    firstName: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'First name must only contain alphabet letters')
-      .required('First name is required'),
-    lastName: Yup.string()
-      .matches(/^[A-Za-z]+$/, 'Last name must only contain alphabet letters')
-      .required('Last name is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
-    password: Yup.string()
-      .min(6, 'Password must be at least 6 characters long')
-      .max(16, 'Password cannot be longer than 16 characters')
-      .required('Password is required'),
-  });
-
-  // Formik hook to handle form values, validation, submission, and error messages
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -30,7 +14,7 @@ export const RegisterForm = () => {
       email: '',
       password: '',
     },
-    validationSchema: validationSchema,
+    validationSchema: signupValidation,
     onSubmit: values => {
       dispatch(register(values));
       formik.resetForm();
@@ -38,7 +22,7 @@ export const RegisterForm = () => {
   });
 
   return (
-    <form className={css.form} onSubmit={formik.handleSubmit} autoComplete='off'>
+    <form className={css.form} onSubmit={formik.handleSubmit}>
       <label className={css.label}>
         First Name
         <input
