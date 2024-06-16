@@ -3,6 +3,9 @@ import { useFormik } from 'formik';
 import { logIn } from '../../redux/auth/authOperations';
 import css from './LoginForm.module.css';
 import { loginValidation } from '../../validations/yupValidation';
+import { FormField } from '../FormField/FormField';
+import { FcPrivacy, FcInvite } from 'react-icons/fc';
+import { Button } from '../Button/Button';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -21,35 +24,14 @@ export const LoginForm = () => {
 
   return (
     <form className={css.form} onSubmit={formik.handleSubmit}>
-      <label className={css.label} htmlFor='email'>
-        Email
-        <input
-          id='email'
-          name='email'
-          type='email'
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        />
-        {formik.touched.email && formik.errors.email && (
-          <div className={css.error}>{formik.errors.email}</div>
-        )}
-      </label>
-      <label className={css.label} htmlFor='password'>
-        Password
-        <input
-          id='password'
-          name='password'
-          type='password'
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-        />
-        {formik.touched.password && formik.errors.password && (
-          <div className={css.error}>{formik.errors.password}</div>
-        )}
-      </label>
-      <button type='submit'>Log In</button>
+      <h3 className={css.formTitle}>Login</h3>
+      {/* prettier-ignore */}
+      <>
+      <FormField label='Email' name='email' type='email' formik={formik} icon={FcInvite } />
+      <FormField label='Password' name='password' type='password' formik={formik} icon={FcPrivacy } />
+      </>
+
+      <Button name='Log In' type='submit' />
     </form>
   );
 };

@@ -1,15 +1,26 @@
 .form {
-  width: 320px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(25, 28, 38, 0.2);
+  border-radius: 5px;
+
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 250ms ease-in-out;
+
+  @media screen and (min-width: 428px) {
+    height: auto;
+    width: 428px;
+  }
 }
 
-.label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-}
-
-.error {
-  color: red;
-  font-size: 0.875rem;
-  margin-top: 4px;
+.formTitle {
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  color: #303030;
+  margin-bottom: 30px;
 }

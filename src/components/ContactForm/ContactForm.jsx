@@ -5,6 +5,7 @@ import { selectContacts } from '../../redux/contacts/contactsSelector';
 import css from './ContactForm.module.css';
 import { contactValidation } from '../../validations/yupValidation';
 import toast from 'react-hot-toast';
+import { Button } from '../Button/Button';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export const ContactForm = () => {
       <label className={css.formField}>
         <p className={css.formLabel}>Name</p>
         <input
+          className={css.formInput}
           type='text'
           name='name'
           value={formik.values.name}
@@ -51,6 +53,7 @@ export const ContactForm = () => {
       <label className={css.formField}>
         <p className={css.formLabel}>Phone</p>
         <input
+          className={css.formInput}
           type='tel'
           name='phone'
           value={formik.values.phone}
@@ -66,6 +69,7 @@ export const ContactForm = () => {
       <label className={css.formField}>
         <p className={css.formLabel}>Email</p>
         <input
+          className={css.formInput}
           type='email'
           name='email'
           value={formik.values.email}
@@ -78,9 +82,7 @@ export const ContactForm = () => {
         )}
       </label>
 
-      <button className={css.formButton} type='submit'>
-        Add Contact
-      </button>
+      <Button name='Add Contact' type='submit' />
     </form>
   );
 };
