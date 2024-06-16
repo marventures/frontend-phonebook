@@ -10,6 +10,7 @@ export const ContactForm = () => {
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleNameChange = e => {
     setName(e.target.value);
@@ -17,6 +18,10 @@ export const ContactForm = () => {
 
   const handlePhoneChange = e => {
     setPhone(e.target.value);
+  };
+
+  const handleEmailChange = e => {
+    setEmail(e.target.value);
   };
 
   const handleSubmit = e => {
@@ -35,11 +40,12 @@ export const ContactForm = () => {
     }
 
     // dispatch(addContact({ name: name, phone: phone }));
-    dispatch(addContact({ name, phone }));
+    dispatch(addContact({ name, phone, email }));
 
     // Reset Form Fields upon submitting
     setName('');
     setPhone('');
+    setEmail('');
   };
 
   return (
@@ -69,6 +75,18 @@ export const ContactForm = () => {
           required
           value={phone}
           onChange={handlePhoneChange}
+        />
+      </label>
+
+      <label className={css.formField}>
+        <p className={css.formLabel}>Email</p>
+        <input
+          type='email'
+          name='name'
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
+          required
+          value={email}
+          onChange={handleEmailChange}
         />
       </label>
       <button className={css.formButton} type='submit'>
