@@ -2,14 +2,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { addContact } from '../../redux/contacts/contactsOperation';
 import { selectContacts } from '../../redux/contacts/contactsSelector';
-import css from './ContactForm.module.css';
+import css from './AddForm.module.css';
 import { contactValidation } from '../../validations/yupValidation';
 import toast from 'react-hot-toast';
 import { Button } from '../Button/Button';
 import { FormField } from '../FormField/FormField';
-import { FcPortraitMode, FcInvite } from 'react-icons/fc';
+import { FcPortraitMode, FcInvite, FcCallback } from 'react-icons/fc';
+import PropTypes from 'prop-types';
 
-export const ContactForm = () => {
+export const AddForm = ({ onClose }) => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
@@ -30,17 +31,22 @@ export const ContactForm = () => {
         toast.success(`${values.name} is successfully added in your contacts!`);
         dispatch(addContact(values));
         formik.resetForm();
+        onClose();
       }
     },
   });
 
   return (
     <form className={css.form} onSubmit={formik.handleSubmit}>
-      <h2 className={css.formTitle}>Edit Contact</h2>
+      <h2 className={css.formTitle}>Add Contact</h2>
       <FormField label='Name' name='name' type='text' formik={formik} icon={FcPortraitMode} />
-      <FormField label='Phone' name='phone' type='phone' formik={formik} icon={FcPortraitMode} />
+      <FormField label='Phone' name='phone' type='phone' formik={formik} icon={FcCallback} />
       <FormField label='Email' name='email' type='email' formik={formik} icon={FcInvite} />
-      <Button name='Edit Contact' type='submit' />
+      <Button className={css.addButton} name='Add' type='submit' />
     </form>
   );
+};
+
+AddForm.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };

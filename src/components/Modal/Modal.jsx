@@ -1,7 +1,7 @@
 import { MdOutlineClose } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
-import { ContactForm } from '../ContactForm/ContactForm';
+import { AddForm } from '../AddForm/AddForm';
 
 export const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -16,7 +16,7 @@ export const Modal = ({ isOpen, onClose }) => {
         <button className={css.closeButton} onClick={onClose}>
           <MdOutlineClose />
         </button>
-        <ContactForm />
+        <AddForm onClose={onClose} />
       </div>
     </>
   );
