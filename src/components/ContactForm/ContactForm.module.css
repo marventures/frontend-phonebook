@@ -1,25 +1,10 @@
 .form {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
 }
 
-.formField {
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 25px;
-}
-
-.formLabel {
-  font-size: 20px;
-}
-
-.formButton {
-  width: 100px;
-}
-
-.error {
-  color: red;
-  font-size: 0.875rem;
+.formTitle {
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  color: #303030;
+  margin-bottom: 30px;
 }

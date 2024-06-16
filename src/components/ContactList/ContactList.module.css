@@ -1,0 +1,8 @@
+.addButton {
+  background: #e85d04;
+  margin-bottom: 30px;
+}
+
+.addButton:hover {
+  background: #e85b04c6;
+}

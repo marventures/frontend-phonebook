@@ -6,11 +6,16 @@ import { selectFilteredContacts, selectError, selectIsLoading } from '../../redu
 import { fetchContacts } from '../../redux/contacts/contactsOperation';
 import { ContactListItem } from './ContactListItem/ContactListItem';
 import { Loader } from '../Loader/Loader';
+import { Button } from '../Button/Button';
+import { useToggle } from '../../hooks/useToggle';
+import { Modal } from '../Modal/Modal';
+import css from './ContactList.module.css';
 
 export const ContactList = () => {
   const filteredContacts = useSelector(selectFilteredContacts);
   const error = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
+  const { isOpen, toggle } = useToggle(false);
 
   const dispatch = useDispatch();
 
@@ -27,6 +32,9 @@ export const ContactList = () => {
       {!isLoading && !error && filteredContacts.length === 0 && (
         <p>The Phonebook is empty. Please add a contact</p>
       )}
+
+      <Button className={css.addButton} type='button' name='Add Contact' onClick={toggle} />
+      <Modal isOpen={isOpen} onClose={toggle} />
 
       {/* if not loading, not error and have atleast 1 filtered contact, show ContactListItem */}
       {!isLoading &&

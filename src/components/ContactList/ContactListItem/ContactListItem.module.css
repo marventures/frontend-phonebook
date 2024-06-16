@@ -4,3 +4,16 @@
   margin-bottom: 10px;
   gap: 30px;
 }
+
+.visuallyHidden {
+  position: absolute;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+}

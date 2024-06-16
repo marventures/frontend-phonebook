@@ -2,9 +2,12 @@ import css from './ContactListItem.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../../redux/contacts/contactsOperation';
+import { useToggle } from '../../../hooks/useToggle';
+import { Modal } from '../../Modal/Modal';
 
 export const ContactListItem = ({ filteredContact }) => {
   const dispatch = useDispatch();
+  const { isOpen, toggle } = useToggle(false);
 
   // handleDelete method
   const handleDelete = () => {
@@ -16,7 +19,11 @@ export const ContactListItem = ({ filteredContact }) => {
       <p>{filteredContact.name}:</p>
       <p>{filteredContact.phone}</p>
       <p>{filteredContact.email}</p>
+      <button className={`${css.editButton} ${isOpen && css.visuallyHidden}`} onClick={toggle}>
+        Edit Contact
+      </button>
       <button onClick={handleDelete}>Delete</button>
+      <Modal isOpen={isOpen} onClose={toggle} />
     </li>
   );
 };
