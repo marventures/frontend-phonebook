@@ -24,7 +24,13 @@ export const ContactListItem = ({ filteredContact }) => {
         Edit Contact
       </button>
       <button onClick={handleDelete}>Delete</button>
-      <Modal isOpen={isOpen} onClose={toggle} component={EditForm} modalTitle='Edit a Contact' />
+      <Modal
+        isOpen={isOpen}
+        onClose={toggle}
+        component={EditForm}
+        modalTitle='Edit a Contact'
+        filteredContact={filteredContact}
+      />
     </li>
   );
 };

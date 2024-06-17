@@ -7,3 +7,8 @@
 .editButton:hover {
   background: #e85b04c6;
 }
+
+.editButton.disabled {
+  background: gray;
+  cursor: not-allowed;
+}

@@ -2,7 +2,13 @@ import { MdOutlineClose } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
-export const Modal = ({ isOpen, onClose, component: ModalContent, modalTitle }) => {
+export const Modal = ({
+  isOpen,
+  onClose,
+  component: ModalContent,
+  modalTitle,
+  filteredContact,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -17,7 +23,8 @@ export const Modal = ({ isOpen, onClose, component: ModalContent, modalTitle }) 
         </button>
         {/* Content */}
         <h2 className={css.modalTitle}>{modalTitle}</h2>
-        <ModalContent onClose={onClose} />
+        {/* component either AddForm or EditForm (check render of Modal)*/}
+        <ModalContent onClose={onClose} filteredContact={filteredContact} />
       </div>
     </>
   );
@@ -28,4 +35,5 @@ Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   component: PropTypes.elementType.isRequired,
   modalTitle: PropTypes.string.isRequired,
+  filteredContact: PropTypes.object,
 };
