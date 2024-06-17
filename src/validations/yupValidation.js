@@ -28,7 +28,7 @@ const contactValidation = Yup.object({
     .required('Name is required'),
   phone: Yup.string()
     .matches(
-      /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
+      /^\+?[\d()-.\s]{10,20}$/,
       'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
     )
     .required('Phone number is required'),
