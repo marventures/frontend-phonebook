@@ -5,6 +5,7 @@ import { deleteContact } from '../../../redux/contacts/contactsOperation';
 import { useToggle } from '../../../hooks/useToggle';
 import { Modal } from '../../Modal/Modal';
 import { EditForm } from '../../EditForm/EditForm';
+import { FaTrashAlt, FaUserEdit } from 'react-icons/fa';
 
 export const ContactListItem = ({ filteredContact }) => {
   const dispatch = useDispatch();
@@ -20,10 +21,14 @@ export const ContactListItem = ({ filteredContact }) => {
       <p>{filteredContact.name}:</p>
       <p>{filteredContact.phone}</p>
       <p>{filteredContact.email}</p>
-      <button className={`${css.editButton} ${isOpen && css.visuallyHidden}`} onClick={toggle}>
-        Edit Contact
-      </button>
-      <button onClick={handleDelete}>Delete</button>
+      <FaUserEdit
+        className={`${css.editButton} ${isOpen && css.visuallyHidden}`}
+        onClick={toggle}
+      />
+      <FaTrashAlt
+        className={`${css.deleteButton} ${isOpen && css.visuallyHidden}`}
+        onClick={handleDelete}
+      />
       <Modal
         isOpen={isOpen}
         onClose={toggle}
