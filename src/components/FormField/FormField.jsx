@@ -1,6 +1,10 @@
+import MaskedInput from 'react-text-mask';
 import css from './FormField.module.css';
 import PropTypes from 'prop-types';
-import InputMask from 'react-input-mask';
+
+// Define the mask array
+// prettier-ignore
+const phoneMask = ['+', '6', '3', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
 
 export const FormField = ({ label, name, type, formik, icon: Icon }) => {
   const isError = formik.touched[name] && formik.errors[name];
@@ -9,9 +13,8 @@ export const FormField = ({ label, name, type, formik, icon: Icon }) => {
     <label className={css.formField}>
       <p className={css.formLabel}>{label}</p>
       {type === 'phone' ? (
-        <InputMask
-          mask='+99 (999) 999 9999'
-          maskChar=''
+        <MaskedInput
+          mask={phoneMask}
           className={`${css.formInput} ${isError && css.errorInput}`}
           type='text'
           name={name}
