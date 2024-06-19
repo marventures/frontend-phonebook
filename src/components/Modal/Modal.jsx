@@ -1,6 +1,7 @@
-import { MdOutlineClose } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
+import { Overlay } from '../Overlay/Overlay';
+import { CloseIcon } from '../CloseIcon/CloseIcon';
 
 export const Modal = ({
   isOpen,
@@ -14,13 +15,11 @@ export const Modal = ({
   return (
     <>
       {/* Overlay */}
-      {isOpen && <div className={css.overlay} onClick={onClose}></div>}
+      {isOpen && <Overlay onClose={onClose} />}
 
       {/* Modal */}
       <div className={css.modal}>
-        <button className={css.closeButton} onClick={onClose}>
-          <MdOutlineClose />
-        </button>
+        <CloseIcon onClose={onClose} />
         {/* Content */}
         <h2 className={css.modalTitle}>{modalTitle}</h2>
         {/* component either AddForm or EditForm (check render of Modal)*/}
