@@ -1,9 +1,15 @@
 .wrapper {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 30px;
 }
 
 .userDetails {
   font-weight: 700;
+}
+
+.logoutButton {
+  width: 200px;
+  background-color: var(--DARK);
 }
