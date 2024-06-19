@@ -10,15 +10,13 @@ export const Modal = ({
   modalTitle,
   filteredContact,
 }) => {
-  if (!isOpen) return null;
-
   return (
     <>
       {/* Overlay */}
       {isOpen && <Overlay onClose={onClose} />}
 
       {/* Modal */}
-      <div className={css.modal}>
+      <div className={`${css.modal} ${isOpen ? css.open : ''}`}>
         <CloseIcon onClose={onClose} />
         {/* Content */}
         <h2 className={css.modalTitle}>{modalTitle}</h2>
