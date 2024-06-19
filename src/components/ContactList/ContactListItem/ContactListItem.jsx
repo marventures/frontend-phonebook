@@ -1,39 +1,41 @@
 import css from './ContactListItem.module.css';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../../redux/contacts/contactsOperation';
-import { useToggle } from '../../../hooks/useToggle';
+import { useState } from 'react';
 import { Modal } from '../../Modal/Modal';
 import { EditForm } from '../../EditForm/EditForm';
 import { FaTrashAlt, FaUserEdit } from 'react-icons/fa';
+import { DeleteForm } from '../../DeleteForm/DeleteForm';
 
 export const ContactListItem = ({ filteredContact }) => {
-  const dispatch = useDispatch();
-  const { isOpen, toggle } = useToggle(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
-  // handleDelete method
-  const handleDelete = () => {
-    dispatch(deleteContact(filteredContact._id));
-  };
+  const toggleEdit = () => setIsEditOpen(!isEditOpen);
+  const toggleDelete = () => setIsDeleteOpen(!isDeleteOpen);
 
   return (
     <li className={css.contactListItem}>
       <p>{filteredContact.name}:</p>
       <p>{filteredContact.phone}</p>
       <p>{filteredContact.email}</p>
-      <FaUserEdit
-        className={`${css.editButton} ${isOpen && css.visuallyHidden}`}
-        onClick={toggle}
-      />
-      <FaTrashAlt
-        className={`${css.deleteButton} ${isOpen && css.visuallyHidden}`}
-        onClick={handleDelete}
-      />
+      <FaUserEdit className={css.editButton} onClick={toggleEdit} />
+      <FaTrashAlt className={css.deleteButton} onClick={toggleDelete} />
+
+      {/* Edit Modal */}
       <Modal
-        isOpen={isOpen}
-        onClose={toggle}
+        isOpen={isEditOpen}
+        onClose={toggleEdit}
         component={EditForm}
         modalTitle='Edit a Contact'
+        filteredContact={filteredContact}
+      />
+
+      {/* Delete Modal */}
+      <Modal
+        isOpen={isDeleteOpen}
+        onClose={toggleDelete}
+        component={DeleteForm}
+        modalTitle='Are you sure you want to delete this Contact?'
         filteredContact={filteredContact}
       />
     </li>

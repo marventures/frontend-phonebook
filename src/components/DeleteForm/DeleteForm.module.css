@@ -1,0 +1,30 @@
+.confirmDetails {
+  font-size: 13px;
+  margin-bottom: 40px;
+}
+
+.confirmDetails p:first-of-type {
+  margin-bottom: 20px;
+}
+
+.confirmName {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancelButton {
+  color: black;
+  border: 2px solid black;
+}
+
+.deleteButton {
+  background: red;
+}
+
+.deleteButton:hover {
+  background: lightcoral;
+}
