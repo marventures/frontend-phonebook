@@ -1,12 +1,12 @@
 import css from './Button.module.css';
 import PropTypes from 'prop-types';
 
-export const Button = ({ name, type, onClick, className, disabled }) => {
+export const Button = ({ name, type, toggle, className, disabled }) => {
   return (
     <button
       className={`${css.button} ${className}`}
       type={type}
-      onClick={onClick}
+      onClick={toggle}
       disabled={disabled}
     >
       {name}
@@ -17,7 +17,7 @@ export const Button = ({ name, type, onClick, className, disabled }) => {
 Button.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  toggle: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
 };

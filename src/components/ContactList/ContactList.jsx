@@ -34,7 +34,7 @@ export const ContactList = () => {
         <p>The Phonebook is empty. Please add a contact</p>
       )}
 
-      <Button className={css.addButton} type='button' name='Add Contact' onClick={toggle} />
+      <Button className={css.addButton} type='button' name='Add Contact' toggle={toggle} />
       <Modal isOpen={isOpen} onClose={toggle} component={AddForm} modalTitle='Add a Contact' />
 
       {/* if not loading, not error and have atleast 1 filtered contact, show ContactListItem */}
