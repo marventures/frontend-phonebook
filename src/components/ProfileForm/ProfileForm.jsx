@@ -15,26 +15,44 @@ export const ProfileForm = () => {
 
   const formik = useFormik({
     initialValues: {
+      avatar: '',
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
     },
     validationSchema: profileValidation,
     onSubmit: values => {
-      dispatch(editUser({ ...values }));
+      const { avatar, firstName, lastName, email } = values;
+      dispatch(editUser({ avatar, firstName, lastName, email }));
+
+      formik.resetForm();
     },
   });
 
   const isFormUnchanged = useMemo(
     () =>
+      formik.values.avatar === '' &&
       formik.values.firstName === user.firstName &&
       formik.values.lastName === user.lastName &&
       formik.values.email === user.email,
     [formik.values, user]
   );
 
+  // Function to handle avatar selection
+  const handleAvatarChange = event => {
+    formik.setFieldValue('avatar', event.currentTarget.files[0]);
+  };
+
   return (
     <form className={css.form} onSubmit={formik.handleSubmit}>
+      <FormField
+        label='Change Profile Picture:'
+        name='avatar'
+        type='file'
+        formik={formik}
+        icon={FcPortraitMode}
+        handleAvatarChange={handleAvatarChange}
+      />
       <FormField
         label='First Name'
         name='firstName'

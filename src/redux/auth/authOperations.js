@@ -102,20 +102,38 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
 
 /*
  * PUT @ /users/info
- * body: { firstName, lastName, email }
+ * body: { avatar, firstName, lastName, email }
  * headers: Authorization: Bearer token
  */
-export const editUser = createAsyncThunk('auth/updateUserInfo', async (userData, thunkAPI) => {
-  try {
-    const res = await axios.put('api/users/info', userData);
-    toast.success('Profile updated successfully!');
-    return res.data;
-  } catch (error) {
-    if (error.response && error.response.status === 409) {
-      toast.error('Email is already in use.');
-    } else {
-      toast.error('Failed to update profile. Please try again.');
+export const editUser = createAsyncThunk(
+  'auth/updateUserInfo',
+  async ({ avatar, firstName, lastName, email }, thunkAPI) => {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('email', email);
+
+    try {
+      const state = thunkAPI.getState();
+      const persistedToken = state.auth.token;
+
+      // Set the Authorization header using the token
+      setAuthHeader(persistedToken);
+
+      const response = await axios.put('api/users/info', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Assuming response.data contains updated user information including avatarURL
+      const { user } = response.data;
+
+      // Return user data including avatarURL
+      return { user };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
-    return thunkAPI.rejectWithValue(error.message);
   }
-});
+);

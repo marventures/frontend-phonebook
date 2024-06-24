@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { register, logIn, logOut, refreshUser, editUser } from './authOperations';
 
+const { VITE_API_BASE_URL } = import.meta.env;
+
 const USER_INITIAL_STATE = {
   firstName: null,
   lastName: null,
@@ -24,7 +26,10 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+        state.user = {
+          ...action.payload.user,
+          avatarURL: `${VITE_API_BASE_URL}${action.payload.user.avatarURL}`,
+        };
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
@@ -44,7 +49,10 @@ const authSlice = createSlice({
         state.isRefreshing = false;
       })
       .addCase(editUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+        state.user = {
+          ...action.payload.user,
+          avatarURL: `${VITE_API_BASE_URL}${action.payload.user.avatarURL}`,
+        };
       });
   },
 });

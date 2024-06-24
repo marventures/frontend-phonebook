@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // prettier-ignore
 const phoneMask = ['+', '6', '3', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
 
-export const FormField = ({ label, name, type, formik, icon: Icon }) => {
+export const FormField = ({ label, name, type, formik, icon: Icon, handleAvatarChange }) => {
   const isError = formik.touched[name] && formik.errors[name];
 
   return (
@@ -22,6 +22,14 @@ export const FormField = ({ label, name, type, formik, icon: Icon }) => {
           onBlur={formik.handleBlur}
           value={formik.values[name]}
           placeholder='+63 (912) 345 6789'
+        />
+      ) : type === 'file' ? (
+        <input
+          className={`${css.formInput} ${isError && css.errorInput}`}
+          type={type}
+          name={name}
+          onChange={handleAvatarChange}
+          onBlur={formik.handleBlur}
         />
       ) : (
         <input
@@ -47,4 +55,5 @@ FormField.propTypes = {
   type: PropTypes.string.isRequired,
   formik: PropTypes.object.isRequired,
   icon: PropTypes.func.isRequired,
+  handleAvatarChange: PropTypes.func,
 };
