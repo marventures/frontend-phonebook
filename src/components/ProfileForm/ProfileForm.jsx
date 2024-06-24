@@ -22,16 +22,15 @@ export const ProfileForm = () => {
     validationSchema: profileValidation,
     onSubmit: values => {
       dispatch(editUser({ ...values }));
-      formik.resetForm();
     },
   });
 
   const isFormUnchanged = useMemo(
     () =>
-      formik.values.firstName === formik.initialValues.firstName &&
-      formik.values.lastName === formik.initialValues.lastName &&
-      formik.values.email === formik.initialValues.email,
-    [formik.values, formik.initialValues]
+      formik.values.firstName === user.firstName &&
+      formik.values.lastName === user.lastName &&
+      formik.values.email === user.email,
+    [formik.values, user]
   );
 
   return (
