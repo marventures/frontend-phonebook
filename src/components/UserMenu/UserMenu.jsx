@@ -21,7 +21,7 @@ export const UserMenu = ({ onClose }) => {
       </p>
       <p className={css.userDetails}>Email:{user.email}</p>
       <p className={css.userDetails}>Subscription: {user.subscription}</p>
-      <Button className={css.logoutButton} type='button' onClick={handleLogout} name='Logout'>
+      <Button className={css.logoutButton} type='button' toggle={handleLogout} name='Logout'>
         Logout
       </Button>
     </div>
