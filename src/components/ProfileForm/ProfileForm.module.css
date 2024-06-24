@@ -3,17 +3,17 @@
   margin: 40px auto;
 }
 
-.editButton {
+.saveButton {
   width: 150px;
   background: #e85d04;
   margin: 0 auto;
 }
 
-.editButton:hover {
+.saveButton:hover {
   background: #e85b04c6;
 }
 
-.editButton.disabled {
+.saveButton.disabled {
   background: gray;
   cursor: not-allowed;
 }

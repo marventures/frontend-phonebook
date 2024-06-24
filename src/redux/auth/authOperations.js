@@ -99,3 +99,23 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
+/*
+ * PUT @ /users/info
+ * body: { firstName, lastName, email }
+ * headers: Authorization: Bearer token
+ */
+export const editUser = createAsyncThunk('auth/updateUserInfo', async (userData, thunkAPI) => {
+  try {
+    const res = await axios.put('api/users/info', userData);
+    toast.success('Profile updated successfully!');
+    return res.data;
+  } catch (error) {
+    if (error.response && error.response.status === 409) {
+      toast.error('Email is already in use.');
+    } else {
+      toast.error('Failed to update profile. Please try again.');
+    }
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

@@ -1,19 +1,17 @@
 import { useMemo } from 'react';
 import { useFormik } from 'formik';
-// import { editContact } from '../../redux/contacts/contactsOperation';
-// import { selectContacts } from '../../redux/contacts/contactsSelector';
+import { useDispatch } from 'react-redux';
+import { editUser } from '../../redux/auth/authOperations';
 import css from './ProfileForm.module.css';
 import { profileValidation } from '../../validations/yupValidation';
-
 import { Button } from '../Button/Button';
 import { FormField } from '../FormField/FormField';
 import { FcPortraitMode, FcInvite } from 'react-icons/fc';
-
 import { useAuth } from '../../hooks/useAuth';
 
 export const ProfileForm = () => {
   const { user } = useAuth();
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -22,7 +20,10 @@ export const ProfileForm = () => {
       email: user.email,
     },
     validationSchema: profileValidation,
-    onSubmit: values => {},
+    onSubmit: values => {
+      dispatch(editUser({ ...values }));
+      formik.resetForm();
+    },
   });
 
   const isFormUnchanged = useMemo(
@@ -52,8 +53,8 @@ export const ProfileForm = () => {
       <FormField label='Email' name='email' type='email' formik={formik} icon={FcInvite} />
 
       <Button
-        className={isFormUnchanged ? `${css.editButton} ${css.disabled}` : css.editButton}
-        name='Edit'
+        className={isFormUnchanged ? `${css.saveButton} ${css.disabled}` : css.saveButton}
+        name='Save'
         type='submit'
         disabled={isFormUnchanged}
       />
