@@ -35,4 +35,20 @@ const contactValidation = Yup.object({
   email: Yup.string().email('Invalid email address').required('Email is required'),
 });
 
-export { signupValidation, loginValidation, contactValidation };
+const profileValidation = Yup.object({
+  firstName: Yup.string()
+    .matches(
+      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+      'Name may contain only letters, apostrophe, dash and spaces.'
+    )
+    .required('First Name is required'),
+  lastName: Yup.string()
+    .matches(
+      /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
+      'Name may contain only letters, apostrophe, dash and spaces.'
+    )
+    .required('Last Name is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+});
+
+export { signupValidation, loginValidation, contactValidation, profileValidation };
