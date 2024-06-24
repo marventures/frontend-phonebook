@@ -7,18 +7,16 @@ import { profileValidation } from '../../validations/yupValidation';
 import { Button } from '../Button/Button';
 import { FormField } from '../FormField/FormField';
 import { FcPortraitMode, FcInvite } from 'react-icons/fc';
-import { useAuth } from '../../hooks/useAuth';
 
 export const ProfileForm = () => {
-  const { user } = useAuth();
   const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
-      avatar: '',
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
+      avatar: null,
+      firstName: '',
+      lastName: '',
+      email: '',
     },
     validationSchema: profileValidation,
     onSubmit: values => {
@@ -31,11 +29,11 @@ export const ProfileForm = () => {
 
   const isFormUnchanged = useMemo(
     () =>
-      formik.values.avatar === '' &&
-      formik.values.firstName === user.firstName &&
-      formik.values.lastName === user.lastName &&
-      formik.values.email === user.email,
-    [formik.values, user]
+      formik.values.avatar === null &&
+      formik.values.firstName === '' &&
+      formik.values.lastName === '' &&
+      formik.values.email === '',
+    [formik.values]
   );
 
   // Function to handle avatar selection

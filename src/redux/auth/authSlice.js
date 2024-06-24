@@ -11,6 +11,11 @@ const USER_INITIAL_STATE = {
   avatarURL: null,
 };
 
+// Helper function to handle avatar URL based on whether it's a Gravatar link
+const getAvatarURL = (baseURL, avatarURL) => {
+  return avatarURL.startsWith('https://s.gravatar.com') ? avatarURL : `${baseURL}${avatarURL}`;
+};
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -28,7 +33,7 @@ const authSlice = createSlice({
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = {
           ...action.payload.user,
-          avatarURL: `${VITE_API_BASE_URL}${action.payload.user.avatarURL}`,
+          avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
         };
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -51,7 +56,7 @@ const authSlice = createSlice({
       .addCase(editUser.fulfilled, (state, action) => {
         state.user = {
           ...action.payload.user,
-          avatarURL: `${VITE_API_BASE_URL}${action.payload.user.avatarURL}`,
+          avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
         };
       });
   },
