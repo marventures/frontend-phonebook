@@ -121,17 +121,14 @@ export const editUser = createAsyncThunk(
       // Set the Authorization header using the token
       setAuthHeader(persistedToken);
 
-      const response = await axios.put('api/users/info', formData, {
+      const res = await axios.put('api/users/info', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      // Assuming response.data contains updated user information including avatarURL
-      const { user } = response.data;
-
-      // Return user data including avatarURL
-      return { user };
+      toast.success('Account has been succesfully edited!');
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
