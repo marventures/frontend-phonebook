@@ -1,27 +1,27 @@
-import css from './Sidebar.module.css';
+import css from './Dropdown.module.css';
 import PropTypes from 'prop-types';
 import { Overlay } from '../Overlay/Overlay';
 import { CloseIcon } from '../CloseIcon/CloseIcon';
 import { UserMenu } from '../UserMenu/UserMenu';
 
-export const Sidebar = ({ isOpen, onClose }) => {
+export const Dropdown = ({ isOpen, onClose }) => {
   return (
     <>
       {/* Overlay */}
       {isOpen && <Overlay onClose={onClose} />}
 
-      <div className={`${css.sidebar} ${isOpen ? css.open : ''}`}>
+      <div className={`${css.dropdown} ${isOpen ? css.open : ''}`}>
         {/* Close Button */}
         <CloseIcon onClose={onClose} />
 
-        {/* Sidebar Links */}
+        {/* Dropdown Links */}
         <UserMenu onClose={onClose} />
       </div>
     </>
   );
 };
 
-Sidebar.propTypes = {
+Dropdown.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

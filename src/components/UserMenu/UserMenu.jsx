@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../Button/Button';
 import PropTypes from 'prop-types';
 import css from './UserMenu.module.css';
+import { Link } from 'react-router-dom';
 
 export const UserMenu = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -16,11 +17,16 @@ export const UserMenu = ({ onClose }) => {
 
   return (
     <div className={css.wrapper}>
-      <p className={css.userDetails}>
-        Name: {user.firstName} {user.lastName}
-      </p>
-      <p className={css.userDetails}>Email:{user.email}</p>
-      <p className={css.userDetails}>Subscription: {user.subscription}</p>
+      <div className={css.userDetails}>
+        <p className={css.userName}>
+          {user.firstName} {user.lastName}
+        </p>
+        <p className={css.userEmail}>{user.email}</p>
+      </div>
+
+      <Link to='/profile' className={css.link} onClick={onClose}>
+        Profile
+      </Link>
       <Button className={css.logoutButton} type='button' toggle={handleLogout} name='Logout'>
         Logout
       </Button>

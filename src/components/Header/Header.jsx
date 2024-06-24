@@ -1,5 +1,5 @@
 import { Navigation } from '../Navigation/Navigation';
-import { Sidebar } from '../Sidebar/Sidebar';
+import { Dropdown } from '../Dropdown/Dropdown';
 import { useToggle } from '../../hooks/useToggle';
 
 import { AuthNav } from '../AuthNav/AuthNav';
@@ -17,8 +17,8 @@ export const Header = () => {
       <Navigation />
       {isLoggedIn ? <Avatar toggle={toggle} /> : <AuthNav />}
 
-      {/* SIDEBAR */}
-      <Sidebar isOpen={isOpen} onClose={toggle} />
+      {/* DROPDOWN */}
+      <Dropdown isOpen={isOpen} onClose={toggle} />
     </header>
   );
 };
