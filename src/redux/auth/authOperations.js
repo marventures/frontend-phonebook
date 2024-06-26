@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
+import Cookies from 'js-cookie'; // Import js-cookie for cookie management
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
@@ -18,7 +19,7 @@ const clearAuthHeader = () => {
 
 /*
  * POST @ /users/signup
- * body: { firstName,lastName, email, password }
+ * body: { firstName, lastName, email, password }
  */
 export const register = createAsyncThunk(
   'auth/register',
@@ -47,7 +48,8 @@ export const register = createAsyncThunk(
 export const logIn = createAsyncThunk('auth/login', async ({ email, password }, thunkAPI) => {
   try {
     const res = await axios.post('api/users/login', { email, password });
-    // After successful login, add the token to the HTTP header
+    // After successful login, add the token to the cookie and set the auth header
+    Cookies.set('jwt_token', res.data.token);
     setAuthHeader(res.data.token);
     return res.data;
   } catch (error) {
@@ -64,12 +66,12 @@ export const logIn = createAsyncThunk('auth/login', async ({ email, password }, 
 
 /*
  * GET @ /users/logout
- * headers: Authorization: Bearer token
  */
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.get('api/users/logout');
-    // After a successful logout, remove the token from the HTTP header
+    // After a successful logout, remove the token from the cookie and clear the auth header
+    Cookies.remove('jwt_token');
     clearAuthHeader();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -78,20 +80,17 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 
 /*
  * GET @ /users/current
- * headers: Authorization: Bearer token
  */
 export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
-  // Reading the token from the state via getState()
-  const state = thunkAPI.getState();
-  const persistedToken = state.auth.token;
+  const persistedToken = Cookies.get('jwt_token');
 
-  if (persistedToken === null) {
+  if (!persistedToken) {
     // If there is no token, exit without performing any request
     return thunkAPI.rejectWithValue('Unable to fetch user');
   }
 
   try {
-    // If there is a token, add it to the HTTP header and perform the request
+    // Set the auth header before making the request
     setAuthHeader(persistedToken);
     const res = await axios.get('api/users/current');
     return res.data;
@@ -103,7 +102,6 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
 /*
  * PUT @ /users/info
  * body: { avatar, firstName, lastName, email }
- * headers: Authorization: Bearer token
  */
 export const editUser = createAsyncThunk(
   'auth/updateUserInfo',
@@ -115,10 +113,14 @@ export const editUser = createAsyncThunk(
     formData.append('email', email);
 
     try {
-      const state = thunkAPI.getState();
-      const persistedToken = state.auth.token;
+      const persistedToken = Cookies.get('jwt_token');
 
-      // Set the Authorization header using the token
+      if (!persistedToken) {
+        // If there is no token, exit without performing any request
+        return thunkAPI.rejectWithValue('Unable to fetch user');
+      }
+
+      // Set the auth header before making the request
       setAuthHeader(persistedToken);
 
       const res = await axios.put('api/users/info', formData, {
@@ -127,7 +129,7 @@ export const editUser = createAsyncThunk(
         },
       });
 
-      toast.success('Account has been succesfully edited!');
+      toast.success('Account has been successfully edited!');
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
