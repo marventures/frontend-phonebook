@@ -1,5 +1,10 @@
 import { SyncLoader } from 'react-spinners';
+import PropTypes from 'prop-types';
 
-export const Loader = () => {
-  return <SyncLoader color='#36d7b7' />;
+export const Loader = ({ className }) => {
+  return <SyncLoader className={className} color='#e85d04' />;
+};
+
+Loader.propTypes = {
+  className: PropTypes.string,
 };

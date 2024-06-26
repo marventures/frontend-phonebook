@@ -23,14 +23,26 @@ const authSlice = createSlice({
     token: null,
     isLoggedIn: false,
     isRefreshing: false,
+    isLoading: false,
   },
   extraReducers: builder => {
     builder
+      .addCase(register.pending, state => {
+        state.isLoading = true;
+      })
       .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = action.payload.user;
         state.isLoggedIn = false;
       })
+      .addCase(register.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(logIn.pending, state => {
+        state.isLoading = true;
+      })
       .addCase(logIn.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = {
           ...action.payload.user,
           avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
@@ -38,30 +50,50 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
+      .addCase(logIn.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(logOut.pending, state => {
+        state.isLoading = true;
+      })
       .addCase(logOut.fulfilled, state => {
+        state.isLoading = false;
         state.user = USER_INITIAL_STATE;
         state.token = null;
         state.isLoggedIn = false;
       })
+      .addCase(logOut.rejected, state => {
+        state.isLoading = false;
+      })
       .addCase(refreshUser.pending, state => {
+        state.isLoading = true;
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isRefreshing = false;
         state.isLoggedIn = true;
         state.user = {
           ...action.payload.user,
           avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
         };
-        state.isRefreshing = false;
       })
       .addCase(refreshUser.rejected, state => {
+        state.isLoading = false;
         state.isRefreshing = false;
       })
+      .addCase(editUser.pending, state => {
+        state.isLoading = true;
+      })
       .addCase(editUser.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.user = {
           ...action.payload.user,
           avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
         };
+      })
+      .addCase(editUser.rejected, state => {
+        state.isLoading = false;
       });
   },
 });

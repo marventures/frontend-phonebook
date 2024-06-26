@@ -17,3 +17,9 @@
   background: gray;
   cursor: not-allowed;
 }
+
+.loader {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+}
