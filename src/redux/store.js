@@ -6,11 +6,10 @@ import { authReducer } from './auth/authSlice';
 import { filterReducer } from './filter/filterSlice';
 import { contactsReducer } from './contacts/contactsSlice';
 
-// Persisting token field from auth slice to localstorage
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'user'],
+  whitelist: ['user'],
 };
 
 export const store = configureStore({

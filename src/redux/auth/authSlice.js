@@ -20,7 +20,6 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: USER_INITIAL_STATE,
-    token: null,
     isLoggedIn: false,
     isRefreshing: false,
     isLoading: false,
@@ -47,7 +46,6 @@ const authSlice = createSlice({
           ...action.payload.user,
           avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
         };
-        state.token = action.payload.token;
         state.isLoggedIn = true;
       })
       .addCase(logIn.rejected, state => {
@@ -59,7 +57,6 @@ const authSlice = createSlice({
       .addCase(logOut.fulfilled, state => {
         state.isLoading = false;
         state.user = USER_INITIAL_STATE;
-        state.token = null;
         state.isLoggedIn = false;
       })
       .addCase(logOut.rejected, state => {
