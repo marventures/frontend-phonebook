@@ -43,6 +43,7 @@ export const register = createAsyncThunk(
 
 /*
  * POST @ /users/login
+ * cookies: jwt_token
  * body: { email, password }
  */
 export const logIn = createAsyncThunk('auth/login', async ({ email, password }, thunkAPI) => {
@@ -66,6 +67,8 @@ export const logIn = createAsyncThunk('auth/login', async ({ email, password }, 
 
 /*
  * GET @ /users/logout
+ * headers: Authorization: Bearer token
+ * cookies: jwt_token
  */
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
@@ -80,6 +83,7 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
 
 /*
  * GET @ /users/current
+ * headers: Authorization: Bearer token
  */
 export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
   const persistedToken = Cookies.get('jwt_token');
@@ -101,6 +105,8 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) 
 
 /*
  * PUT @ /users/info
+ * headers: Authorization: Bearer token
+ * cookies: jwt_token
  * body: { avatar, firstName, lastName, email }
  */
 export const editUser = createAsyncThunk(
