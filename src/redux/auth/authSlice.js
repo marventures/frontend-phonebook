@@ -46,8 +46,12 @@ const authSlice = createSlice({
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(refreshUser.fulfilled, state => {
+      .addCase(refreshUser.fulfilled, (state, action) => {
         state.isLoggedIn = true;
+        state.user = {
+          ...action.payload.user,
+          avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
+        };
         state.isRefreshing = false;
       })
       .addCase(refreshUser.rejected, state => {
