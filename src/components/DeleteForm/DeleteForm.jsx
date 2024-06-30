@@ -51,7 +51,7 @@ export const DeleteForm = ({ onClose, filteredContact }) => {
         />
 
         <div className={css.buttonContainer}>
-          <Button className={css.cancelButton} onClick={onClose} name='Cancel' type='button'>
+          <Button className={css.cancelButton} toggle={onClose} name='Cancel' type='button'>
             Cancel
           </Button>
           <Button
