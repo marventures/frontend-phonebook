@@ -21,16 +21,16 @@
   font-weight: 700;
   font-size: 16px;
   text-align: center;
-  color: #303030;
+  color: var(--DARK);
   margin-bottom: 30px;
 }
 
 .loginButton {
   width: 150px;
-  background: #e85d04;
+  background-color: var(--PRIMARY);
   margin: 0 auto;
 }
 
 .loginButton:hover {
-  background: #e85b04c6;
+  background-color: var(--SECONDARY);
 }

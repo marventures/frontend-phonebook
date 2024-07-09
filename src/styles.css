@@ -6,6 +6,10 @@
   --SECONDARY: #f48c06;
   --DARK: #303030;
   --LIGHT: #edf2f4;
+  --DANGER: red;
+  --LIGHT-DANGER: rgba(255, 0, 0, 0.768);
+  --DISABLED: gray;
+  --INPUT-FOCUS: #4d5ae5;
 }
 
 body {

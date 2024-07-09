@@ -17,14 +17,15 @@
 }
 
 .cancelButton {
-  color: black;
-  border: 2px solid black;
+  color: var(--DARK);
+  border: 2px solid var(--DARK);
 }
 
 .deleteButton {
-  background: red;
+  background: var(--DANGER);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .deleteButton:hover {
-  background: lightcoral;
+  background: var(--LIGHT-DANGER);
 }

@@ -1,9 +1,9 @@
 .addButton {
   width: 150px;
-  background: #e85d04;
+  background-color: var(--PRIMARY);
   margin: 0 auto;
 }
 
 .addButton:hover {
-  background: #e85b04c6;
+  background-color: var(--SECONDARY);
 }

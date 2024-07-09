@@ -3,11 +3,11 @@
   text-decoration: none;
   padding: 12px;
   font-weight: 700;
-  color: #2a363b;
+  color: var(--DARK);
 }
 
 .linkActive {
   composes: link;
   font-weight: 800;
-  color: #e84a5f;
+  color: var(--PRIMARY);
 }

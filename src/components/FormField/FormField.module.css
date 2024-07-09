@@ -30,11 +30,11 @@
 
 .formInput:focus {
   outline: none;
-  border-color: #4d5ae5;
+  border-color: var(--INPUT-FOCUS);
 }
 
 .errorInput {
-  border-color: red;
+  border-color: var(--DANGER);
 }
 
 .formIcon {
@@ -42,13 +42,13 @@
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  fill: #303030;
+  fill: var(--DARK);
   transition: fill 250ms ease-in-out;
 }
 
 .formInput:hover + .formIcon,
 .formInput:focus + .formIcon {
-  fill: #e85d04;
+  fill: var(--PRIMARY);
 }
 
 .formButton {
@@ -58,7 +58,7 @@
 }
 
 .error {
-  color: red;
+  color: var(--DANGER);
   position: absolute;
   bottom: -16px;
   font-size: 12px;

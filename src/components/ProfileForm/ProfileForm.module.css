@@ -5,16 +5,16 @@
 
 .saveButton {
   width: 150px;
-  background: #e85d04;
+  background: var(--PRIMARY);
   margin: 0 auto;
 }
 
 .saveButton:hover {
-  background: #e85b04c6;
+  background: var(--SECONDARY);
 }
 
 .saveButton.disabled {
-  background: gray;
+  background: var(--DISABLED);
   cursor: not-allowed;
 }
 
