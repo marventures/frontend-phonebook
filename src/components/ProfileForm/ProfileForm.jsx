@@ -9,6 +9,7 @@ import { FormField } from '../FormField/FormField';
 import { FcPortraitMode, FcInvite } from 'react-icons/fc';
 import { useAuth } from '../../hooks/useAuth';
 import { selectIsLoading } from '../../redux/auth/authSelectors';
+import { resendVerificationEmail } from '../../redux/auth/authOperations';
 import { Loader } from '../Loader/Loader';
 
 export const ProfileForm = () => {
@@ -56,6 +57,10 @@ export const ProfileForm = () => {
     formik.setFieldValue('avatar', event.currentTarget.files[0]);
   };
 
+  const handleResendVerification = () => {
+    dispatch(resendVerificationEmail(formik.values.email));
+  };
+
   return (
     <form className={css.form} onSubmit={formik.handleSubmit}>
       {isLoading ? (
@@ -85,7 +90,17 @@ export const ProfileForm = () => {
             icon={FcPortraitMode}
           />
           <FormField label='Email' name='email' type='email' formik={formik} icon={FcInvite} />
-
+          {user.verify ? (
+            <p className={css.verifiedMessage}>Email has already been verified</p>
+          ) : (
+            <button
+              type='button'
+              className={css.verifyEmailButton}
+              onClick={handleResendVerification}
+            >
+              Verify Email
+            </button>
+          )}
           <Button
             className={isFormUnchanged ? `${css.saveButton} ${css.disabled}` : css.saveButton}
             name='Save'

@@ -142,3 +142,22 @@ export const editUser = createAsyncThunk(
     }
   }
 );
+
+export const resendVerificationEmail = createAsyncThunk(
+  'auth/resendVerificationEmail',
+  async (email, thunkAPI) => {
+    try {
+      const res = await axios.post('api/users/verify/', { email });
+      toast.success('Verification email sent! Please check your email.');
+      return res.data;
+    } catch (error) {
+      toast.error('Failed to resend verification email!');
+      if (error.response && error.response.status === 400) {
+        toast.error('Email has already been verified');
+      } else {
+        toast.error("Email doesn't exist");
+      }
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

@@ -23,3 +23,25 @@
   top: 50%;
   right: 50%;
 }
+
+.verifyEmailButton {
+  background-color: var(--PRIMARY);
+  color: var(--LIGHT);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.verifyEmailButton:hover {
+  background-color: var(--SECONDARY);
+}
+
+.verifiedMessage {
+  position: relative;
+  top: -40px;
+  left: 0;
+  font-size: 12px;
+  color: green;
+  font-weight: bold;
+}

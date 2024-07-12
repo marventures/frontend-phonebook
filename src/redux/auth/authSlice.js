@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, logIn, logOut, refreshUser, editUser } from './authOperations';
+// prettier-ignore
+import { register, logIn, logOut, refreshUser, editUser, resendVerificationEmail } from './authOperations';
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
@@ -9,6 +10,7 @@ const USER_INITIAL_STATE = {
   email: null,
   subscription: null,
   avatarURL: null,
+  verify: false,
 };
 
 // Helper function to handle avatar URL based on whether it's a Gravatar link
@@ -87,9 +89,19 @@ const authSlice = createSlice({
         state.user = {
           ...action.payload.user,
           avatarURL: getAvatarURL(VITE_API_BASE_URL, action.payload.user.avatarURL),
+          verify: action.payload.user.email === state.user.email ? state.user.verify : false,
         };
       })
       .addCase(editUser.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(resendVerificationEmail.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(resendVerificationEmail.fulfilled, state => {
+        state.isLoading = false;
+      })
+      .addCase(resendVerificationEmail.rejected, state => {
         state.isLoading = false;
       });
   },
