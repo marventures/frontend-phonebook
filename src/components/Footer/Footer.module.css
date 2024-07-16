@@ -1,14 +1,19 @@
 .footerContainer {
-  position: absolute;
-  bottom: 0;
-  width: 95%;
-  padding: 20px 0;
+  padding: 100px 0;
   text-align: center;
   font-size: 13px;
   font-style: italic;
 
   color: var(--DARK);
   text-decoration: none;
+
+  @media (min-width: 768px) {
+    right: 42%;
+  }
+
+  @media (min-width: 1158px) {
+    right: 45%;
+  }
 }
 
 .footerLink {

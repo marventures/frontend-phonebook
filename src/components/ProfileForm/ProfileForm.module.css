@@ -1,12 +1,16 @@
 .form {
-  width: 400px;
+  width: 300px;
   margin: 40px auto;
+
+  @media (min-width: 758px) {
+    width: 400px;
+  }
 }
 
 .saveButton {
   width: 150px;
   background: var(--PRIMARY);
-  margin: 0 auto;
+  margin: 30px auto 0;
 }
 
 .saveButton:hover {
